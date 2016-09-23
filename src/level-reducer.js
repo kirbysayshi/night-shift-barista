@@ -142,6 +142,9 @@ export default function reducer (state, action) {
 
     state.levelTime += GAME_UPDATE_DT;
 
+    // Kick the RNG to ensure it at least appears somewhat random.
+    state.rng();
+
     // look through all active timers and increment
     // grouphead will flow without player sitting there
     // grinder requires player to sit there
