@@ -2,7 +2,7 @@ import { Store } from 'naivedux';
 import Screen from './lib/screen';
 import loadImage from './lib/load-image';
 import Loop from './lib/loop';
-//import swipeDetect from './lib/swipe-detect';
+import swipeDetect from './lib/swipe-detect';
 
 import initialLevelState from './src/initial-level-state';
 import reducer from './src/level-reducer';
@@ -129,26 +129,45 @@ function boot () {
 
       window.btnup.addEventListener('touchend', e => {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         store.dispatch({ type: SWIPE_UP });
       }, false);
 
       window.btndown.addEventListener('touchend', e => {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         store.dispatch({ type: SWIPE_DOWN });
       }, false);
 
       window.btnact.addEventListener('touchstart', e => {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         store.dispatch(actionActivate());
       }, false);
 
       window.btnact.addEventListener('touchend', e => {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         store.dispatch({ type: ACTIVATE_CEASE });
       }, false);
 
       // prevent scrolling on mobile.
       document.body.addEventListener('touchstart', e => e.preventDefault());
+
+      swipeDetect(
+        document,
+        () => { /*up*/ store.dispatch({ type: SWIPE_UP }); },
+        () => { /*right*/ store.dispatch(actionActivate()); store.dispatch({ type: ACTIVATE_CEASE }); },
+        () => { /*down*/ store.dispatch({ type: SWIPE_DOWN }); },
+        () => { /*left*/ },
+        () => { /*tap*/ store.dispatch(actionActivate()); store.dispatch({ type: ACTIVATE_CEASE }); },
+        () => { /*holdStart*/ store.dispatch(actionActivate()); },
+        () => { /*holdEnd*/ store.dispatch({ type: ACTIVATE_CEASE }); }
+      )
     }
   });
 }
