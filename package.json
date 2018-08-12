@@ -19,7 +19,7 @@
     "optimize-images": "for f in assets/m05-short.png assets/tiles.png; do convert $f PNG8:\"$f\"8 && mv -f \"$f\"8 ${f%.*}.png; done;",
     "optimize-svg": "svgo assets",
     "zip": "rm -rf game.zip dist/ && NODE_ENV=production npm run build && pushd dist/ && zip -X -r game.zip index.html *.png *.svg *.js && ls -lah game.zip && echo $(echo \"$(wc -c < game.zip) - 13312\" | bc) bytes remain",
-    "deploy": "npm run build && gh-pages -d dist/"
+    "deploy": "rm -rf dist/ && npm run build && gh-pages -d dist/"
   },
   "author": "Drew Petersen <senofpeter@gmail.com>",
   "license": "MIT"
