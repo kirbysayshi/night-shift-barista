@@ -50,12 +50,15 @@ import {
 
 // Espresso: the coffee beverage produced by a pump or lever espresso machine. This Italian word describes a beverage made from 7 grams (+/- 2 grams) of finely ground coffee, producing 1-1.5 ounces (30-45ml) of extracted beverage under 9 bar (135psi) of brewing pressure at brewing temperatures of between 194 and 204 degrees Fahrenheit, over a period of 25 seconds (+/- 5 seconds) of brew time. Espresso is what this whole definition list is about!
 
+import images from './assets/*.png';
+console.log(images);
+
 function boot () {
   Promise.all([
-    loadImage('assets/tiles.png'),
+    loadImage(images.tiles),
 
     // http://mfs.sub.jp/font.html
-    loadImage('assets/m05-short.png'),
+    loadImage(images['m05-short']),
   ]).then(([tileImage, fontImage]) => {
 
     const store = new Store(reducer, initialLevelState(window.c, tileImage, fontImage));
